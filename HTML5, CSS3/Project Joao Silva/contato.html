@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>João da Silva - Contato</title>
+        <link rel="icon" href="imagens/favicon.png">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/site.css">
+        <link rel="stylesheet" href="css/contato.css">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700">
+    </head>
+    <body>
+        <main>
+            <h1 class="titulo-principal">Contato</h1>
+            <div class="container">
+                <form>
+                    <fieldset>
+                        <legend>Dados Pessoais: </legend>
+                        <label for="nome">Nome:</label>
+                        <input type="text" name="nome" id="nome"  placeholder="Digite seu nome aqui" autofocus 
+                        required pattern="[A-Za-z ']{4,}" title="O nome precisa ter pelo menos 4 caracteres">
+                        <label for="idade">Idade</label>
+                        <input id="idade" type="number" max="150" min="14" title="Preencha apenas com números">
+                        <label for="email" name="email">Email:</label>
+                        <input type="email" id="email" required placeholder="Ex: user@domain.com">
+                    </fieldset>
+                    <fieldset>
+                        <legend>Assunto: </legend>
+                        <label>
+                            <input type="radio" name="radiogroup" value="blog">
+                            Blog
+                        </label>
+                        <label>
+                            <input type="radio" name="radiogroup"  value="servico">
+                            Serviço
+                        </label>
+                        <fieldset>
+                            <input type="radio" name="radiogroup" value="Outro" id="outro">
+                            <label for="outro">Outro</label>
+                            <input type="text" name="outro-assunto">
+                        </fieldset>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Assunto</legend>
+                        <select name="radiogroup">
+                            <option value="blog">Blog</option>
+                            <option value="servico">Serviço</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </fieldset>
+                    <label for="message">Messagem:</label>
+                    <textarea name="message" id="message" cols="30" rows="10" required placeholder="Escreva a sua mensagem"></textarea>
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+        </main>
+        <img src="imagens/eu.jpg" alt="Minha foto" class="minha-foto">
+        <aside class="navegacao-site">
+            <h1>João da Silva</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="bio.html">Sobre mim</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <ul class="icones-redes-sociais">
+                <li>
+                    <a href="https://github.com/joaodasilva" class="github" data-tooltip="Veja meus projetos opensource">
+                        Github
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/joaodasilva" class="twitter" data-tooltip="Siga-me no Twitter">
+                        Twitter
+                    </a>
+                </li>
+                <li>
+                    <a href="https://br.linkedin.com/pub/joão-da-silva/32/4/508" class="linkedin" data-tooltip="Veja meu currículo">
+                        LinkedIn
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <footer class="rodape-pagina">
+            &copy; João da Silva 2014
+        </footer>
+    </body>
+</html>
