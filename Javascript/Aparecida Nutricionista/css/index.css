@@ -132,3 +132,19 @@ button[disabled=disabled], button:disabled {
 .campo-invalido{
 	border: 1px solid red;
 }
+
+.paciente-invalido {
+	background: lightcoral;
+}
+
+.mensagem-erro {
+	color: lightcoral;
+	text-align: center;
+	font-size: 2em;
+}
+
+.mensagem-success {
+	color: greenyellow;
+	text-align: center;
+	font-size: 2em;
+}
