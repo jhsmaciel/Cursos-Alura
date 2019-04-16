@@ -3,7 +3,7 @@ let botao = document.querySelector('#botao-buscar');
 
 botao.addEventListener('click',function(){
     var  xhr = new XMLHttpRequest();
-    xhr.open('GET','https://api-pacientes.herokuapp.com/p1acientes');
+    xhr.open('GET','https://api-pacientes.herokuapp.com/pacientes');
     xhr.addEventListener('load',function () { 
         let spanMsg = document.querySelector('#msg-http');
             if( xhr.status == 200){
