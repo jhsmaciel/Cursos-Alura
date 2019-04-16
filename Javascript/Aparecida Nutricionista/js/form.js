@@ -14,14 +14,18 @@ button.addEventListener('click', () =>  {
             mensagem.classList = 'mensagem-erro'
             return;
         }  
-        // Obtendo o pai dos elementos
-        let tabela = document.querySelector("#tabela-pacientes")
-        // Fixando o filho com os netos no pai
-        tabela.appendChild(makeTr(paciente));
+        adicionaPaciente(paciente);
         mensagem.textContent = 'Cadastrado com Sucesso';
         mensagem.classList = 'mensagem-success'
 
 })
+
+function adicionaPaciente(paciente) {
+    // Obtendo o pai dos elementos
+    let tabela = document.querySelector("#tabela-pacientes")
+    // Fixando o filho com os netos no pai
+    tabela.appendChild(makeTr(paciente));
+}
 
 function makeTr(paciente){
     let pacienteTr = document.createElement('tr')
