@@ -148,3 +148,19 @@ button[disabled=disabled], button:disabled {
 	text-align: center;
 	font-size: 2em;
 }
+
+.fade-out {
+	opacity: 0;
+	transition: 0.5s;
+}
+
+#filtrar-tabela {
+	width: 200px;
+	height: 35px;
+	font-size: 1.1em;
+	margin-bottom: 0.8em;
+}
+
+.invisivel {
+	display: none;
+}
