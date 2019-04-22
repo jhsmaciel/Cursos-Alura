@@ -29,19 +29,16 @@
     </form>
     
     <div class="text-center">
-        <button class="btn btn-primary text-center" type="button">
+        <button onclick="negociacaoController.importaNegociacoes()" class="btn btn-primary text-center" type="button">
             Importar Negociações
         </button>
-        <button class="btn btn-primary text-center" type="button">
+        <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.apaga()">
             Apagar
         </button>
     </div> 
     <br>
     <br>
-
-    <div id="negociacoes-view">
-
-    </div>
+    <div id="negociacoes-view"></div>
 
     <script src="js/app/models/Negociacao.js"></script>
     <script src="js/app/controllers/NegociacaoController.js"></script>
@@ -51,10 +48,78 @@
     <script src="js/app/views/NegociacoesView.js"></script>
     <script src="js/app/models/Mensagem.js"></script>
     <script src="js/app/views/MensagemView.js"></script>
+    <script src="js/app/services/ProxyFactory.js"></script>
+    <script src="js/app/helpers/Bind.js"></script>
     
     <script>
         let negociacaoController = new NegociacaoController();
-        let dateHelper = new DateHelper();
     </script>
+    
 </body>
 </html>
+
+
+<!--
+// Manuseiando proxy, e criando 'armadilhas para alteração/requisição desses valores'
+<script>class Pessoa {
+
+    constructor(nome) {
+        this._nome = nome;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    set nome(nome) {
+        this._nome = nome;
+    }
+
+    grita(frase) {
+        return `${this._nome} grita ${frase}`;
+    }
+}
+
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+                return function() {
+                    console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
+                    Reflect.apply(target[prop], target, arguments);       
+                }
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+
+   console.log(pessoa.grita('Olá'));
+    class Funcionario {
+
+        constructor(email='') {
+            this._email = email;
+        }
+
+        get email() {
+            return this._email;
+        }
+
+        set email(email) {
+            this._email = email;
+        }
+    }
+
+    let proxFunc = new Proxy(new Funcionario(), {
+        get(target,prop,receiver) {
+            console.log('Armadilha aqui')
+            return Reflect.get(target,prop,receiver);
+        },
+        set(target,prop,value,receiver) {
+            console.log(`Valor antigo: ${target[prop]} , valor novo: ${value} da propriedade ${prop}`)
+            return Reflect.set(target,prop,value,receiver);
+        }
+    })
+</script>  
+
+-->

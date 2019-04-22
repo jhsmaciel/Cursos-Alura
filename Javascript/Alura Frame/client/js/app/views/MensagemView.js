@@ -3,6 +3,6 @@ class MensagemView extends View {
         super(elemento);
     }
     template(model){
-        return `<p class='alert alert-info'>${model.texto}</p>`;
+        return typeof (model) != 'object' ? `<p class='alert alert-info'>${model}</p>`: '<p></p>';
     }
 }
