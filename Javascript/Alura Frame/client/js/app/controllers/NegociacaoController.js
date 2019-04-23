@@ -17,11 +17,12 @@ class NegociacaoController {
             new MensagemView($('#mensagem-views')),
             'texto'
         );
+        this._service = new NegociacaoService();
         this._init();
     }
 
     _init(){
-        new NegociacaoService()
+        this._service
             .lista()
             .then(negociacoes => 
                 negociacoes.forEach( 
@@ -38,7 +39,7 @@ class NegociacaoController {
 
         let negociacao = this._criaNegociacao();
         
-        new NegociacaoService()
+            this._service
             .cadastra(negociacao)
             .then(mensagem => {
                 this._mensagem.texto = mensagem+'';
@@ -49,16 +50,12 @@ class NegociacaoController {
     }
 
     importaNegociacoes(){
-        let negService = new NegociacaoService();
-        negService
-        .obterAllNegociacoes()
-        .then(negociacoes => negociacoes
-                                .filter( negociacao => !this._listaNegociacao.negociacoes
-                                    .some(negociacaoExistente => 
-                                        JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)
-                                    )))
-        .then(negociacoes => {
-            negociacoes.forEach(negociacao => this._listaNegociacao.adiciona(negociacao));
+        
+        this._service
+        .importa(this._listaNegociacao.negociacoes)
+        .then(negociacoes => { negociacoes.forEach(negociacao => 
+            this._listaNegociacao.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações do período importadas'
         })
         .catch(erro => this._mensagem.texto = erro)
     }
