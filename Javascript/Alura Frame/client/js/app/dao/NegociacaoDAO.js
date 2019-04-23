@@ -4,7 +4,7 @@ class NegociacaoDAO {
         this._store = 'negociacoes'
     }
 
-    adiciona(negociacao){
+    adicionar(negociacao){
         return new Promise((resolve,reject)=> {
             let request = this._connection
             .transaction([this._store],'readwrite')
@@ -14,7 +14,7 @@ class NegociacaoDAO {
             request.onsuccess = e => resolve('Negociação adicionada com sucesso')
 
             request.onerror = e => {
-                reject('Não foi possível adicionar a negociacao')
+                reject(e.target.error);
             }
         });
     }

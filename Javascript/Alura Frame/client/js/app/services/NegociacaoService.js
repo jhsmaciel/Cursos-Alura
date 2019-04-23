@@ -58,14 +58,12 @@ class NegociacaoService{
             .catch(erro => { throw new Error(erro) });
     }
     cadastra(negociacao){
-        return new Promise((resolve,reject)=>
-            ConnectionFactory
+        return ConnectionFactory
                 .getConnection()
                 .then(connection => new NegociacaoDAO(connection))
-                .then(dao => dao.adiciona(negociacao))
-                .then( resolve('Negociação cadastrada com sucesso') )
-                .catch( reject("Não foi possível adicionar a negociação"))
-        )  
+                .then(dao => dao.adicionar(negociacao))
+                .then(()=>'Negociação cadastrada com sucesso')
+                .catch(()=>"Não foi possível adicionar a negociação");  
     }
     lista(){
         return ConnectionFactory

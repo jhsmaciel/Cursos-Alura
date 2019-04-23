@@ -37,11 +37,12 @@ class NegociacaoController {
         event.preventDefault();
 
         let negociacao = this._criaNegociacao();
+        
         new NegociacaoService()
             .cadastra(negociacao)
             .then(mensagem => {
-                this._listaNegociacoes.adiciona(negociacao);
-                this._mensagem.texto = mensagem+''; 
+                this._mensagem.texto = mensagem+'';
+                this._listaNegociacao.adiciona(negociacao); 
                 this._limpaFormulario();  
             })
             .catch(erro => this._mensagem.texto = erro+'');
