@@ -1,0 +1,15 @@
+{
+  "name": "casadocode",
+  "version": "1.0.0",
+  "description": "Livraria Casa do Código",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "João Maciel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.16.3"
+  }
+}
