@@ -66,8 +66,6 @@ System.register(['../models/ListaNegociacao', '../models/Mensagem', '../views/Ne
                     this._mensagem = this._mensagem = new Bind(new Mensagem(), new MensagemView($('#mensagem-views')), 'texto');
                     this._service = new NegociacaoService();
                     this._init();
-
-                    this._import = 1;
                 }
 
                 _createClass(NegociacaoController, [{
@@ -114,7 +112,6 @@ System.register(['../models/ListaNegociacao', '../models/Mensagem', '../views/Ne
                                 return _this3._listaNegociacao.adiciona(negociacao);
                             });
                             if (negociacoes.length != 0) {
-                                console.log('a');
                                 _this3._mensagem.texto = 'Negociações do período importadas';
                             }
                         }).catch(function (erro) {
