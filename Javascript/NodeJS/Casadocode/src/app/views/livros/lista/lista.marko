@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Node é TOP</title>
+</head>
+<body>
+    <h1>Listagem de livros</h1>
+    <table id="livros">
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Preço</th>
+            <th>Editar</th>
+            <th>Remover</th>
+        </tr>
+        <tr id="livro-${livro.id}" for (livro in data.livros)>
+            <td>${livro.id}</td>
+            <td>${livro.titulo}</td>
+            <td>${livro.preco}</td>
+            <td><a href="#">Editar</a></td>
+            <td><a href="#" data-ref="${livro.id}" data-type="remocao">Remover</a></td>
+        </tr>
+    </table>
+    <script src="/static/js/remove.js"></script>
+</body>
+</html>
