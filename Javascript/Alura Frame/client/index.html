@@ -12,7 +12,7 @@
     <div id='mensagem-views'>
 
     </div>
-    <form class="form" onsubmit="negociacaoController.adiciona(event)">
+    <form class="form">
         <div class="form-group">
             <label for="data">Data</label>
             <input type="date" id="data" class="form-control" required autofocus/>        
@@ -29,7 +29,7 @@
     </form>
     
     <div class="text-center">
-        <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.apaga()">
+        <button class="btn btn-primary text-center" id="buttones" type="button">
             Apagar
         </button>
     </div> 
@@ -37,91 +37,12 @@
     <br>
     <div id="negociacoes-view"></div>
 
-    <script src="js/app/models/Negociacao.js"></script>
-    <script src="js/app/controllers/NegociacaoController.js"></script>
-    <script src="js/app/helpers/DateHelper.js"></script>
-    <script src="js/app/models/ListaNegociacao.js"></script>
-    <script src="js/app/views/View.js"></script>
-    <script src="js/app/views/NegociacoesView.js"></script>
-    <script src="js/app/models/Mensagem.js"></script>
-    <script src="js/app/dao/NegociacaoDAO.js"></script>
-    <script src="js/app/views/MensagemView.js"></script>
-    <script src="js/app/services/ProxyFactory.js"></script>
-    <script src="js/app/helpers/Bind.js"></script>
-    <script src="js/app/services/NegociacaoService.js"></script>
-    <script src="js/app/services/HttpService.js"></script>
-    <script src="js/app/polyfill/es6.js"></script>
-    <script src="js/app/services/ConnectionFactory.js"></script>
-    
+    <script src="node_modules/systemjs/dist/system.js"></script>
     <script>
-        var negociacaoController = new NegociacaoController();
+        System.defaultJSExtensions = true;
+        System.import('js/app/boot').catch(function(err){
+            console.log(err);
+        });
     </script>
-    
 </body>
 </html>
-
-
-<!--
-// Manuseiando proxy, e criando 'armadilhas para alteração/requisição desses valores'
-<script>class Pessoa {
-
-    constructor(nome) {
-        this._nome = nome;
-    }
-
-    get nome() {
-        return this._nome;
-    }
-
-    set nome(nome) {
-        this._nome = nome;
-    }
-
-    grita(frase) {
-        return `${this._nome} grita ${frase}`;
-    }
-}
-
-let pessoa = new Proxy(new Pessoa('Barney'), {
-
-        get(target, prop, receiver) {
-            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
-
-                return function() {
-                    console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
-                    Reflect.apply(target[prop], target, arguments);       
-                }
-            }
-            return Reflect.get(target, prop, receiver);
-        }
-    });
-
-   console.log(pessoa.grita('Olá'));
-    class Funcionario {
-
-        constructor(email='') {
-            this._email = email;
-        }
-
-        get email() {
-            return this._email;
-        }
-
-        set email(email) {
-            this._email = email;
-        }
-    }
-
-    let proxFunc = new Proxy(new Funcionario(), {
-        get(target,prop,receiver) {
-            console.log('Armadilha aqui')
-            return Reflect.get(target,prop,receiver);
-        },
-        set(target,prop,value,receiver) {
-            console.log(`Valor antigo: ${target[prop]} , valor novo: ${value} da propriedade ${prop}`)
-            return Reflect.set(target,prop,value,receiver);
-        }
-    })
-</script>  
-
--->
