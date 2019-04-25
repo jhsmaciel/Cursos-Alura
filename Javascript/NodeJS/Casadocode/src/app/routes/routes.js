@@ -25,11 +25,24 @@ module.exports = (app) => {
             ))
             .catch(erro => console.log(erro));
     });
+    app.get('/livros/form/',function(req,res){
+        res.marko(require('../views/livros/form/form.marko'),{ livro: {}});
+    });
+    app.put('/livros',function(req,res){
+        console.log(req.body);
+        bookDAO.atualiza(req.body)
+            .then(res.redirect('/livros'))
+            .catch(erro => console.log(erro));
+    });
     app.get('/livros/form/:id',function(req,res){
         const id = req.params.id;
         
         bookDAO.buscaPorId(id)
-            .then(livro => res.marko(require('../views/livros/form/form.marko'), { livro: livro }))
+            .then(livro => 
+                    res.marko(
+                    require('../views/livros/form/form.marko'), 
+                    { livro: livro })
+                )
             .catch(erro => console.log(erro));
     });
     app.post('/livros',function(req,res){
