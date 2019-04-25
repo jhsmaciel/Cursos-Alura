@@ -23,8 +23,14 @@
         <main class="conteudoPrincipal">
             <div class="container">
                 <h1>Cadastro de livros</h1>
-                
-                <form action="/livros" method="post">
+
+                <div if(data.errosValidacao)>
+                    <div class="alert alert-danger" for(erro in data.errosValidacao)>
+                        ${erro.param} - ${erro.msg}
+                    </div>
+                </div>
+
+                <form action="/livros/form" method="post">
 
                     <div if(data.livro.id)>
                         <input type="hidden" name="_method" value="PUT">
@@ -56,8 +62,8 @@
                     </div>
                     <div class="col-8">
                         <ul class="redesSociais">
-                            <li><a href="" class="compartilhar-facebook" target="_blank">/CasaDoCodigo</a></li>
-                            <li><a href="" class="compartilhar-twitter" target="_blank">@casadocodigo</a></li>
+                            <li><a href="http://www.facebook.com/casadocodigo" class="compartilhar-facebook" target="_blank">/CasaDoCodigo</a></li>
+                            <li><a href="http://www.twitter.com/casadocodigo" class="compartilhar-twitter" target="_blank">@casadocodigo</a></li>
                         </ul>
                     </div>
                 </div>
