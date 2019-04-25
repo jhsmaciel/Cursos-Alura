@@ -1,0 +1,11 @@
+{
+  "name": "payfast",
+  "version": "1.0.0",
+  "description": "Um gateway p pagamento atraves de recursos http",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joao Henrique",
+  "license": "ISC"
+}
