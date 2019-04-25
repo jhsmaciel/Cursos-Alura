@@ -1,4 +1,5 @@
-const Controlador = require('./livro-controlador');
+const LivroControlador = require('./livro-controlador');
+
 const templates = require('../views/templates');
 
 class BaseControlador {
@@ -17,30 +18,38 @@ class BaseControlador {
             );
         };
     }
-    login(){
-        return function(req, resp){
-            resp.mark(
-                templates.base.login
-            );
-        }
+
+    login() {
+        
+        return function(req, resp) {
+            resp.marko(templates.base.login);
+        };
     }
-    efetuaLogin(){
-        return function(req, resp, next){
+
+    efetuaLogin() {
+
+        return function(req, resp, next) {
+
+            // Lógica de login.
             const passport = req.passport;
-            passport.authenticate('local',(erro,usuario,info) => {
-                if(info){
-                    return resp.marko(require(templates.base.login))
+            passport.authenticate('local', (erro, usuario, info) => {
+                if (info) {
+                    return resp.marko(templates.base.login);
                 }
 
-                if(erro){
+                if (erro) {
                     return next(erro);
                 }
 
-                req.login(usuario, (erro) => { if(erro) return next(erro) })
+                req.login(usuario, (erro) => {
+                    if (erro) {
+                        return next(erro);
+                    }
 
-                return resp.redirect(LivroControlador.rotas().lista);
-            })(req,resp,next);
-        }
+                    return resp.redirect(LivroControlador.rotas().lista);
+                });
+            })(req, resp, next);
+        };
     }
 }
 
