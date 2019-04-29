@@ -14,4 +14,6 @@ PagamentoDAO.prototype.buscaPorId = function(id,callback){
     this._connection.query('SELECT * FROM pagamento WHERE id = ?',id,callback);
 }
 
-module.exports = PagamentoDAO();
+module.exports = function(){
+    return PagamentoDAO;
+};

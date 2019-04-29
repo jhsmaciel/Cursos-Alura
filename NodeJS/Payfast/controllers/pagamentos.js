@@ -12,11 +12,17 @@ module.exports = function(app) {
         pagamento.data = new Date();
 
         var connection = app.persistencia.connectionFactory();
-        var PagamentoDao = new app.persistencia.PagamentoDAO(connection);
 
-        PagamentoDao.salva(pagamento,function(erro, rs){
+        var PagamentoDAO = new app.persistencia.PagamentoDAO(connection);
+
+        PagamentoDAO.salva(pagamento,function(erro, rs){
+            if(erro){
+                console.log('Erro ao inserir no banco: '+erro)
+                res.status(400).send(erro);
+                return;
+            }
             console.log('Pagamento em criação...')
-            res.json(pagamento)
+            res.json(pagamento);
         })
     });
 }

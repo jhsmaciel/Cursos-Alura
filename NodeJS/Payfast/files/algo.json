@@ -1,5 +1,6 @@
 {
     "pagamento": "payfast",
-    "valor": 50, "moeda":"BRL", 
+    "valor": 10.95, 
+    "moeda":"BRL", 
     "descricao":"Criando um pagamento"
 }
