@@ -1,14 +1,14 @@
-var mysql = require('mysql');
+var mysql  = require('mysql');
 
 function createDBConnection(){
-    return mysql.createConnection({
-        host:'localhost',
-        user:'jhsmaciel',
-        password:'root',
-        database:'payfast'
-    })
+		return mysql.createConnection({
+			host: 'localhost',
+			user: 'jhsmaciel',
+			password: 'root',
+			database: 'payfast'
+		});
 }
 
-module.exports = function(){
-    return createDBConnection;
+module.exports = function() {
+	return createDBConnection;
 }

@@ -2,7 +2,7 @@ CREATE DATABASE payfast;
 USE payfast;
 CREATE TABLE `pagamentos` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `pagamento` varchar(255) NOT NULL,
+    `forma_de_pagamento` varchar(255) NOT NULL,
     `valor` decimal(10,2) NOT NULL,
     `moeda` varchar(3) NOT NULL,
     `status` varchar(255) NOT NULL,
