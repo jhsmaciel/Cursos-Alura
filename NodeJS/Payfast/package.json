@@ -4,8 +4,7 @@
   "description": "gateway de pagamentos utilizando recursos http.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "inicia": "nodemon ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "api",
@@ -19,6 +18,8 @@
     "consign": "^0.1.2",
     "express": "^4.14.0",
     "express-validator": "^2.20.8",
-    "mysql": "^2.11.1"
+    "mysql": "^2.11.1",
+    "restify": "^4.1.1",
+    "soap": "^0.16.0"
   }
 }
