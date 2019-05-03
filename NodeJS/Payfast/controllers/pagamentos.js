@@ -4,6 +4,32 @@ module.exports = function(app){
     console.log('Recebida requisicao de teste na porta 3000.')
     res.send(`Dia ${data.getDay()}, ${data.getHours()} horas e ${data.getMinutes()} minutos `);
   });
+  app.get('/pagamentos/pagamento/:id',function(req,res){
+    let id = req.params.id
+    console.log(id)
+
+    var connection = app.persistencia.connectionFactory();
+    var pagamentoDao = new app.persistencia.PagamentoDao(connection);
+	
+	var memcachedCliente = app.persistencia.memcachedCliente();
+
+	cliente.get('pagamento-'+id, function(erro,result){
+		if(erro || !result) {
+			console.log('Não Encontrada')   
+			return;
+		}
+		console.log(JSON.stringify(result)+ ' encontrada');
+	});
+    pagamentoDao.buscaPorId(id,function(erro,resultado){
+      if(erro){ 
+        res.status(400).send(erro)
+        return
+      } 
+      console.log('Pagamento encontrado: '+ JSON.stringify(resultado))
+      res.json(resultado)
+
+    })
+  });
 
   app.delete('/pagamentos/pagamento/:id', function(req, res){
     var pagamento = {};
@@ -79,7 +105,11 @@ module.exports = function(app){
       } else {
       pagamento.id = resultado.insertId;
       console.log('pagamento criado');
+	  var memachedClient = app.persistencia.memachedClient();
 
+	  cliente.set('pagamento-20',{'id': 20},10000,function(erro){
+	    if(!erro) console.log('Chave add')
+	  });
       if (pagamento.forma_de_pagamento == 'cartao'){
         var cartao = req.body["cartao"];
         console.log(cartao);
