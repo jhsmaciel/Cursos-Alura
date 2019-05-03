@@ -1,7 +1,8 @@
 module.exports = function(app){
+  const data = new Date();
   app.get('/pagamentos', function(req, res){
     console.log('Recebida requisicao de teste na porta 3000.')
-    res.send('OK.');
+    res.send(`Dia ${data.getDay()}, ${data.getHours()} horas e ${data.getMinutes()} minutos `);
   });
 
   app.delete('/pagamentos/pagamento/:id', function(req, res){
