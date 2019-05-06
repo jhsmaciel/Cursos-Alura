@@ -1,3 +1,5 @@
+let logger = require('../servicos/logger')
+
 module.exports = function(app){
   const data = new Date();
   app.get('/pagamentos', function(req, res){
@@ -7,28 +9,29 @@ module.exports = function(app){
   app.get('/pagamentos/pagamento/:id',function(req,res){
     let id = req.params.id
     console.log(id)
-
+    logger.info('Pagamento de id: '+ id);
     var connection = app.persistencia.connectionFactory();
     var pagamentoDao = new app.persistencia.PagamentoDao(connection);
 	
-	var memcachedCliente = app.persistencia.memcachedCliente();
+	var cliente = app.servicos.memcachedClient();
 
 	cliente.get('pagamento-'+id, function(erro,result){
 		if(erro || !result) {
-			console.log('Não Encontrada')   
-			return;
+			pagamentoDao.buscaPorId(id,function(erro,resultado){
+				if(erro){ 
+          logger.info(erro)
+					res.status(400).send(erro)
+					return
+				} 
+				console.log('Pagamento encontrado pelo banco: '+ JSON.stringify(resultado))
+				res.json(resultado)  
+				return;
+			})
+		} else {
+			console.log(JSON.stringify(result)+ ' encontrada pelo cache');
+			res.json(result)  
 		}
-		console.log(JSON.stringify(result)+ ' encontrada');
 	});
-    pagamentoDao.buscaPorId(id,function(erro,resultado){
-      if(erro){ 
-        res.status(400).send(erro)
-        return
-      } 
-      console.log('Pagamento encontrado: '+ JSON.stringify(resultado))
-      res.json(resultado)
-
-    })
   });
 
   app.delete('/pagamentos/pagamento/:id', function(req, res){
@@ -58,6 +61,7 @@ module.exports = function(app){
 
     pagamento.id = id;
     pagamento.status = 'CONFIRMADO';
+    logger.info('Pagamento confirmado id: '+id)
 
     var connection = app.persistencia.connectionFactory();
     var pagamentoDao = new app.persistencia.PagamentoDao(connection);
@@ -65,9 +69,10 @@ module.exports = function(app){
     pagamentoDao.atualiza(pagamento, function(erro){
         if (erro){
           res.status(500).send(erro);
+          logger.info(erro);
           return;
         }
-        console.log('pagamento criado');
+        console.log('pagamento confirmado');
         res.send(pagamento);
     });
 
@@ -105,9 +110,9 @@ module.exports = function(app){
       } else {
       pagamento.id = resultado.insertId;
       console.log('pagamento criado');
-	  var memachedClient = app.persistencia.memachedClient();
+	  var cliente = app.servicos.memcachedClient();
 
-	  cliente.set('pagamento-20',{'id': 20},10000,function(erro){
+	  cliente.set('pagamento'+pagamento.id,pagamento,100000,function(erro){
 	    if(!erro) console.log('Chave add')
 	  });
       if (pagamento.forma_de_pagamento == 'cartao'){
