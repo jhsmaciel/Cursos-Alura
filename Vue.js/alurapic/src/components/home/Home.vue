@@ -1,13 +1,15 @@
 
 <template>
     <div>
-        <h1 class="centralizado">{{ msg }}</h1>   
+        <h1 class="centralizado">{{ msg }}</h1>  
+        <P v-show="mensagem" class="centralizado">{{ mensagem }}</P> 
         <input type="search" @input="filtro = $event.target.value" class="filtro" placeholder="Filtar pelo titulo">
         <ul class="lista-fotos">
             <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
                 <meu-painel :titulo="foto.titulo">
-                    <imagem-responsiva :url="foto.url" :alt="foto.titulo" />
-                    <meu-botao tipo="button" rotulo="REMOVER" @click.native="remove(foto)"/>
+                    <imagem-responsiva v-meu-tranform:rotate.animate="15" :url="foto.url" :alt="foto.titulo" />
+                    <router-link :to="{ name: 'altera', params: {id: foto._id}}" ><meu-botao tipo="button" rotulo="Alterar"/></router-link>
+                    <meu-botao tipo="button" rotulo="Remover" @botaoAtivado="remove(foto)" :confirmacao="false" estilo="perigo"/>
                 </meu-painel>
             </li>
         </ul>
@@ -18,6 +20,7 @@
 import Painel from '../shared/painel/Painel.vue';
 import ImagemResponsiva from '../shared/imagem-responsiva/ImagemResponsiva.vue';
 import Botao from '../shared/botao/Botao.vue';
+import FotoService from '../../domain/foto/FotoService';
 export default {
     components: {
         'meu-painel' : Painel,
@@ -30,7 +33,8 @@ export default {
             fotos: [
 
             ],
-            filtro: ''      
+            filtro: '',
+            mensagem: '',     
         }
     },
     computed: {
@@ -43,21 +47,28 @@ export default {
       }  
     },
     created() {
-        let promise = this.$http.get("http://localhost:3000/v1/fotos");
-        promise
-        .then((result) => { 
-            this.fotos = result.body;
-        }).catch((err) => {
-            console.log(err);
-        });
+        this.service = new FotoService(this.$resource);
+
+        this.service.lista()
+       .then(fotos => {
+            this.fotos = fotos
+       }).catch( err => this.mensagem = 'Não foi possível obter as imagens');
+        
     },
     methods: {
         remove(foto){
-            if(confirm('Confirma a operação?')){
-                alert(foto.titulo)
-            }
+            this.service.apaga(foto._id)
+            .then(  ()  =>{
+                this.mensagem = "Foto removida com sucesso!"
+                let indice = this.fotos.indexOf(foto);
+                this.fotos.splice(indice, 1)
+            },
+            err => {
+                console.log(err);
+                this.mensagem = "Não foi possível remover a foto!"
+            });   
         }
-    },
+    }
 }
 </script>
 
