@@ -4,12 +4,16 @@
 
 <script>
 export default {
+
     props: ['url', 'titulo']
 }
 </script>
 
-<style>
-    .imagem-responsiva, .filtro {
-        width: 98%;
-    }
+<style scoped>
+
+  .imagem-responsiva {
+
+    width: 100%;
+  }
+    
 </style>

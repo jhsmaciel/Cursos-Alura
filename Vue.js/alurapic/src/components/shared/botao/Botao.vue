@@ -1,45 +1,56 @@
 <template>
-    <button @click="disparaAcao()" class="botao" :class="estiloBotao" :type="tipo">{{ rotulo }}</button>
+    <button @click="disparaAcao()" class="botao" :class="estiloDoBotao" :type="tipo">{{ rotulo }}</button>
 </template>
 
 <script>
-['tipo','rotulo', 'confirmacao','estilo']
+
 export default {
+
     props: {
+
         tipo: {
-            required: true,
+            required: true, 
             type: String
         },
 
-        rotulo:{
-            required: true,
+        rotulo: {
+            required: true, 
             type: String
-        },
-        
+        }, 
+
         confirmacao: Boolean,
         estilo: String
+
     },
+
     methods: {
-        disparaAcao(){
-            if(this.confirmacao){
-                if(confirm('Confirma a operação?')){
-                    this.$emit('botaoAtivado')
+
+        disparaAcao() {
+
+            if(this.confirmacao) {
+                if(confirm('Confirma operação?')) {
+                    this.$emit('botaoAtivado');
                 }
                 return;
             }
-            this.$emit('botaoAtivado')
+            this.$emit('botaoAtivado');
         }
     },
+
     computed: {
-        estiloBotao(){
-            if(this.estilo == 'padrao' || !this.estilo) return 'botao-padrao'
-            if(this.estilo == 'perigo') return 'botao-perigo'
+
+        estiloDoBotao() {
+
+            if(this.estilo == 'padrao' || !this.estilo) return 'botao-padrao';
+            if(this.estilo == 'perigo') return 'botao-perigo';
         }
-    },
+
+    }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+    $cor: firebrick;
     .botao {
         display: inline-block;
         padding: 10px;
@@ -49,7 +60,7 @@ export default {
     }
 
     .botao-perigo {
-        background: firebrick;
+        background: $cor;
         color: white;
     }
 

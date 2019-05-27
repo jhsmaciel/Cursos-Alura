@@ -7,24 +7,26 @@
                 <slot></slot>
             </div>
         </transition>
-        
     </div>
 </template>
 
 <script>
-
 export default {
+
     props: ['titulo'],
-    data(){
+
+    data() {
+
         return {
-            visivel:true
+
+            visivel: true
         }
     }
 }
+
 </script>
 
 <style scoped>
-     /* estilo do painel */ 
    .painel {
     padding: 0 auto;
     border: solid 2px grey;
@@ -45,15 +47,23 @@ export default {
     padding: 10px;
     text-transform: uppercase;
   }
-  
+
   * {
-      box-shadow: 2px 2px 5px black;
+      box-shadow: 5px 5px 5px;
   }
 
-  .painel-fade-enter, .painel-fade-leave-active {
-      opacity: 0;
-  }
-  .painel-fade-enter-active,.painel-fade-leave-active {
-      transition: opacity 0.5s;
-  }
+ .painel-fade-enter, .painel-fade-leave-active {
+
+     opacity: 0;
+ }
+
+ .painel-fade-enter-active, .painel-fade-leave-active {
+
+     transition: opacity .4s;
+ }
+
+ .painel-conteudo {
+    overflow: hidden;
+ }
+
 </style>
